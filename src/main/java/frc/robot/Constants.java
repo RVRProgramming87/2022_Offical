@@ -51,4 +51,8 @@ public abstract class Constants {
     //Climber motors
     public static int CLIMBER_LEFT;
     public static int CLIMBER_RIGHT;
+
+     //Sparkmax/NEO's ID
+     public static final int SPARKMAX_ID1 = 1;
+     public static final int SPARKMAX_ID3 = 3;
 }

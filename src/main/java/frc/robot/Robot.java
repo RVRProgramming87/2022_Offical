@@ -4,12 +4,10 @@
 
 /**
  * Authors: Joshua Hizgiaev, Helios Gayibor, and Ethan Friedman as of Robotics Year 2022
- * If this project is to be used again in continuing years, please place the new author names below the previous yearsa authors
+ * If this project is to be used again in continuing years, please place the new author names below the previous years authors
  * Ex: Authors: X, Y, Z, etc as of Robotics year XXXX 
  */
  
-
-
 package frc.robot;
 
 //Pre-imports after project was initially created
@@ -17,10 +15,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.robot.subsystems.*;
 
 //CTRE Imports so we can use TalonFX (Talon 500) motors
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
+//REV Robotics imports
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 //Smartdashboard imports, however, please use shuffleboard to view live data when robot is running 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -42,13 +46,18 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
-  //Create an instance/creating objects for our gamepad and joystick classes, access modifier is set as default
-  static Joystick gamepad = new Joystick(Constants.GAMEPAD); 
-  static Joystick joystick = new Joystick(Constants.JOYSTICK);
+  //Create an instance/objects for our gamepad and joystick seperatly, access modifier is set as default
+   Joystick gamepad = new Joystick(Constants.GAMEPAD); 
+   Joystick joystick = new Joystick(Constants.JOYSTICK);
 
   //Create new instances/objects of our Talon motors (These are for testing purposes ONLY)
   TalonFX talon1 = new TalonFX(8);
   TalonFX talon2 = new TalonFX(0);
+
+  //Create new instances of SparkMAX NEO motors
+  CANSparkMax neoMotor1;
+  CANSparkMax neoMotor3;
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -130,16 +139,61 @@ public class Robot extends TimedRobot {
 
     //Establish a network table for limelight connection
     NetworkTable table = NetworkTableInstance.getDefault().getTable("lightlight");
-    
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+  
+    //Set limelight variables with default values
+    double x = tx.getDouble(0.0);
+    double y = ty.getDouble(0.0);
 
+    /**
+     * The following lines are used to test Smartdashboard and its functions
+     * Please use the shuffleboard software during live testing to view real time data
+     */
+    int counter = 0;
+    SmartDashboard.putNumber("Counter", counter++);
+    if(counter >= 1000){
+      counter = 0;
+    }
+    SmartDashboard.putBoolean("Controller input", gamepad.getRawButton(2));
+    SmartDashboard.putNumber("Joystick value", gamepad.getRawAxis(1));
+    SmartDashboard.putNumber("tx", x);
+    SmartDashboard.putNumber("ty", y);
 
+    //Individual stick and button values to test motor functions
+    double stick = gamepad.getRawAxis(1);
+    boolean button = gamepad.getRawButton(2);
 
+    //TODO: Look into SlewRateLimiters and https://www.chiefdelphi.com/t/acceleration-curve-java-help/142128/10 for any possible solutions 
+    //Acceleration curve (Subject to major change)
+    double accelCurveValue = 0.05;
+    double accelCurveStart = 0.05;
+    double accelCurveFactor = 40;
+   
+    while(accelCurveValue <= 0.4){
+      accelCurveValue = accelCurveValue * accelCurveStart * accelCurveFactor;
+    }
 
+    //Test to see how code works with Talon motors
+    talon1.set(ControlMode.PercentOutput, stick);
+    talon2.set(ControlMode.PercentOutput, stick);
 
+    //A test to see how to use limelight values to control robot motors
+    if(button == true){
+        if (x > 0) {
+          talon1.set(ControlMode.PercentOutput, 0.2);
+        } else if (x < 0) {
+          talon1.set(ControlMode.PercentOutput, -0.2);
+        } 
+      } else {
+        talon1.set(ControlMode.PercentOutput, 0);
+      }
 
+      //The proceeding code is created in order to test Spark MAX motors and NEO's (Subject to change) 
 
-
-
+      //Create two NEO motor instances
+      neoMotor1 = new CANSparkMax(Constants.SPARKMAX_ID1, MotorType.kBrushless);
+      neoMotor3 = new CANSparkMax(Constants.SPARKMAX_ID3, MotorType.kBrushless);
 
   }
 
