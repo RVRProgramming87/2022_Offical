@@ -1,7 +1,8 @@
 # FRC Team RVR87 Robot Code
-![FRC,20%](/assets/FRC.PNG)
 
 This is the offical code for FRC Team RVR87 for robotics Year 2022
+
+![FRC,20%](/assets/FRC.PNG)
 
 ## How to use GitHub for RVR87:
 
