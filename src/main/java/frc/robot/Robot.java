@@ -5,14 +5,15 @@
 /**
  * Authors: Joshua Hizgiaev, Helios Gayibor, and Ethan Friedman as of Robotics Year 2022
  * If this project is to be used again in continuing years, please place the new author names below the previous years authors
+ * **MAKE A NEW REPO FOR EACH YEAR**
  * Ex: Authors: X, Y, Z, etc as of Robotics year XXXX 
+ * This is done to ensure credibility and consistancy for each year  
  */
  
 package frc.robot;
 
 //Pre-imports after project was initially created
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.Subsystem;

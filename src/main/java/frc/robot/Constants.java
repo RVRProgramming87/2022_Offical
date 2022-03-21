@@ -16,6 +16,7 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+//Each constant with an assigned value should be final 
 public abstract class Constants {
     //Each individual motor 
     public static int NORTHMOTOR;
@@ -28,25 +29,25 @@ public abstract class Constants {
     public static int REVERSE_INTAKE_BUTTON = 2;
 
     //Joystick usb value and Gamepad usb value derived from FRC Drive Station
-    public static int JOYSTICK = 1;
-    public static int GAMEPAD = 0;
+    public static final int JOYSTICK = 1;
+    public static final int GAMEPAD = 0;
 
     //Each individual axies for Gamepad
-    public static int STICK_X = 0;
-    public static int STICK_Y = 1;
-    public static int ROTATE_AXIS = 4;
+    public static final int STICK_X = 0;
+    public static final int STICK_Y = 1;
+    public static final int ROTATE_AXIS = 4;
 
     //The button that when pressed would allow the robot to auto-align
-    public static int AUTO_ALIGN_BUTTON = 1;
+    public static final int AUTO_ALIGN_BUTTON = 1;
 
     //Get-Into-Position (GIP) button
-    public static int GIP_BUTTON = 4;
+    public static final int GIP_BUTTON = 4;
 
     //The DPad button values in degrees
-    public static int DPAD_UP = 0;
-    public static int DPAD_DOWN = 180;
-    public static int DPAD_LEFT = 270;
-    public static int DPAD_RIGHT = 90; 
+    public static final int DPAD_UP = 0;
+    public static final int DPAD_DOWN = 180;
+    public static final int DPAD_LEFT = 270;
+    public static final int DPAD_RIGHT = 90; 
 
     //Climber motors
     public static int CLIMBER_LEFT;
