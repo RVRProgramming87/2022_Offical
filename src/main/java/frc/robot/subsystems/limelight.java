@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class limelight extends Subsystem {
     
-    //The height of the target (Subject to change each year)
+    //The height of the target to be used in methods (Subject to change each year)
     private static final double height = 30; //TODO: Change this
 
     //Make a new Network Table
@@ -23,13 +23,13 @@ public class limelight extends Subsystem {
 
     //Create new Network Table entries (May be subject to change depending on what is needed)
     NetworkTableEntry tv = table.getEntry("tv");
-    NetworkTableEntry tx = table.getEntry("tx");
+    static NetworkTableEntry tx = table.getEntry("tx");
     static NetworkTableEntry ty = table.getEntry("ty"); //Static because it is used in a static method
     NetworkTableEntry ta = table.getEntry("ta");
 
     //Create variables to store Limelight data with default value as 0.0
     double v = tv.getDouble(0.0); //Determine whether the Limelight has valid targets (0 or 1)
-    double x = tx.getDouble(0.0); //Determine horizontal offset from crosshair to target
+    static double x = tx.getDouble(0.0); //Determine horizontal offset from crosshair to target
     static double y = ty.getDouble(0.0); //Determine vertical offset from crosshair to target
     double a = ta.getDouble(0.0); //Actual percentage of target image to Limelight (0 - 100)
 

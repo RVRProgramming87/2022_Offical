@@ -5,19 +5,25 @@
 /**
  * Authors: Joshua Hizgiaev, Helios Gayibor, and Ethan Friedman as of Robotics Year 2022
  * If this project is to be used again in continuing years, please place the new author names below the previous years authors
- * **MAKE A NEW REPO FOR EACH YEAR**
  * Ex: Authors: X, Y, Z, etc as of Robotics year XXXX 
- * This is done to ensure credibility and consistancy for each year  
+ * This is done to ensure credibility and consistancy for each year so please adhere to this, author names can be repeated  
+ * **MAKE A NEW REPO FOR EACH YEAR**
+ */
+
+/**
+ * See this link:
+ * https://frc-pdr.readthedocs.io/en/latest/GoodPractices/structure.html
+ * to better understand how to properly structure FRC code and why we structure it the way it is
  */
  
 package frc.robot;
 
 //Pre-imports after project was initially created
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.subsystems.*;
+import frc.robot.subsystems.DriveBase;
 
 //CTRE Imports so we can use TalonFX (Talon 500) motors
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -43,32 +49,39 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 
 public class Robot extends TimedRobot {
-  //Pre-Coded statements after project creation 
+
+  //Always keep this
   private Command m_autonomousCommand;
-  private RobotContainer m_robotContainer;
+  private OI oi;
+  public static DriveBase driveBase = new DriveBase();
+
+  /**
+   * These following instances can be used either in teleop or test section
+   * (Mostly test section)
+   */
 
   //Create an instance/objects for our gamepad and joystick seperatly, access modifier is set as default
-   Joystick gamepad = new Joystick(Constants.GAMEPAD); 
-   Joystick joystick = new Joystick(Constants.JOYSTICK);
+  Joystick gamepad = new Joystick(Constants.GAMEPAD); 
+  Joystick joystick = new Joystick(Constants.JOYSTICK);
 
   //Create new instances/objects of our Talon motors (These are for testing purposes ONLY)
   TalonFX talon1 = new TalonFX(8);
-  TalonFX talon2 = new TalonFX(0);
+  TalonFX talon2 = new TalonFX(0);  
 
-  //Create new instances of SparkMAX NEO motors
-  CANSparkMax neoMotor1;
-  CANSparkMax neoMotor3;
-  
+  //Create new Spark MAX neo instances
+  CANSparkMax neoMotor1 = new CANSparkMax(Constants.SPARKMAX_ID1, MotorType.kBrushless);
+  CANSparkMax neoMotor3 = new CANSparkMax(Constants.SPARKMAX_ID2, MotorType.kBrushless);
 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // Instantiate our OI/Robo-Container. This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    oi = new OI();
   }
 
   /**
@@ -78,6 +91,7 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
+
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -97,7 +111,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = oi.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -106,8 +120,26 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is called periodically during autonomous. */
+  //May need heavy changes for this to work
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    Scheduler.getInstance().run();
+    driveBase.autoAlign();
+
+    try{
+      Thread.sleep(3000);
+    } catch(InterruptedException ex){
+      ex.printStackTrace();
+    }
+
+    driveBase.getIntoPosition();
+
+    try{
+      Thread.sleep(2000);
+    } catch(InterruptedException ex){
+      ex.printStackTrace();
+    }
+  }
 
   @Override
   public void teleopInit() {
@@ -119,22 +151,36 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
   }
-
+  
+  //One of the most important methods
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
-
+  public void teleopPeriodic() {
+    Scheduler.getInstance().run();
+    driveBase.holonomicDrive(OI.gamepad.getRawAxis(Constants.STICK_X), OI.gamepad.getRawAxis(Constants.STICK_Y), OI.gamepad.getRawAxis(Constants.ROTATE_AXIS), DriveBase.maxSpeed(), OI.gamepad.getRawButton(Constants.DPAD_UP), OI.gamepad.getRawButton(Constants.DPAD_DOWN), OI.gamepad.getRawButton(Constants.DPAD_LEFT), OI.gamepad.getRawButton(Constants.DPAD_RIGHT)); // calls holonomic class from drivebase
+    driveBase.intake(DriveBase.maxSpeed());
+    driveBase.conveyor();
+    driveBase.launcher(DriveBase.maxSpeed());
+    driveBase.autoAlign();
+    driveBase.getIntoPosition();
+  }
+  
+  //Seperate Test and Tele with Auto
+  /**------------------------------------------------------------------------------------------------ */
+  
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }
+  
 
   /** This function is called periodically during test mode. */
   /**
    * This method should be exclusivley used for testing individual 
    * robot properties, such as motors, limelight, Smartdashboard, etc
    */
+
   @Override
   public void testPeriodic() {
 
@@ -162,8 +208,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("ty", y);
 
     //Individual stick and button values to test motor functions
-    double stick = gamepad.getRawAxis(1);
-    boolean button = gamepad.getRawButton(2);
+    double stick = joystick.getRawAxis(1);
+    boolean button = gamepad.getRawButton(1);
 
     //TODO: Look into SlewRateLimiters and https://www.chiefdelphi.com/t/acceleration-curve-java-help/142128/10 for any possible solutions 
     //Acceleration curve (Subject to major change)
@@ -181,6 +227,7 @@ public class Robot extends TimedRobot {
 
     //A test to see how to use limelight values to control robot motors
     if(button == true){
+      talon1.set(ControlMode.PercentOutput, 0.8);
         if (x > 0) {
           talon1.set(ControlMode.PercentOutput, 0.2);
         } else if (x < 0) {
@@ -192,12 +239,16 @@ public class Robot extends TimedRobot {
 
       //The proceeding code is created in order to test Spark MAX motors and NEO's (Subject to change) 
 
-      //Create two NEO motor instances
-      neoMotor1 = new CANSparkMax(Constants.SPARKMAX_ID1, MotorType.kBrushless);
-      neoMotor3 = new CANSparkMax(Constants.SPARKMAX_ID3, MotorType.kBrushless);
-
+      //Create two NEO motor instances to test
+      
+      if(button == true){
+        neoMotor1.set(0.5);
+        neoMotor3.set(0.5);
+      }
+      
   }
 
+  //Can be extremely useful for useful for future RVR teams if the time is taken to understand these methods
   /** This function is called once when the robot is first started up. */
   @Override
   public void simulationInit() {}

@@ -52,8 +52,22 @@ public abstract class Constants {
     //Climber motors
     public static int CLIMBER_LEFT;
     public static int CLIMBER_RIGHT;
-
+    public static int CLIMBER_BUTTON;
+    
      //Sparkmax/NEO's ID
      public static final int SPARKMAX_ID1 = 1;
-     public static final int SPARKMAX_ID3 = 3;
+     public static final int SPARKMAX_ID2 = 2;
+
+     //Conveyor buttons
+     public static int CONVEYOR_MOTOR;
+     public static final int CONVEYOR_BUTTON = 4;
+
+     //Launchers
+     public static int LEFT_LAUNCHER;
+     public static int RIGHT_LAUNCHER;
+     public static final int LAUNCHER_BUTTON = 6;
+
+     //Shooting distance (TODO: Convert to cm if need be)
+     //Highly suggest this value to be changed for each competition if distance is changed 
+     public static final double shootDistance = 2.7844;
 }
