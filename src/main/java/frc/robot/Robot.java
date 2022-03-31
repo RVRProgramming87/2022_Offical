@@ -237,10 +237,7 @@ public class Robot extends TimedRobot {
         talon1.set(ControlMode.PercentOutput, 0);
       }
 
-      //The proceeding code is created in order to test Spark MAX motors and NEO's (Subject to change) 
-
-      //Create two NEO motor instances to test
-      
+      //The proceeding code is created in order to test Spark MAX motors and NEO's (Subject to change)       
       if(button == true){
         neoMotor1.set(0.5);
         neoMotor3.set(0.5);
