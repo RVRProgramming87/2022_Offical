@@ -30,5 +30,3 @@ VS Code allows you to stage changes when code is edited in a very simple manner
 3. Click the **"+"** button next to the file you want to push to github, after this, click the checkmark above, create a commit message, and if prompted, click the sync button in order to sync with the repository 
 4. When these steps are completed, your changes to the code will now be pushed and present in GitHub 
 ##  
-
-
