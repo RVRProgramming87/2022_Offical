@@ -19,10 +19,10 @@ package frc.robot;
 //Each constant with an assigned value should be final 
 public abstract class Constants {
     //Each individual motor 
-    public static int NORTHMOTOR;
-    public static int EASTMOTOR;
-    public static int SOUTHMOTOR;
-    public static int WESTMOTOR;
+    public static final int NORTHMOTOR = 1;
+    public static final int EASTMOTOR = 2;
+    public static final int SOUTHMOTOR = 3;
+    public static final int WESTMOTOR = 4;
 
     //The individual intake motor and its button placement
     public static int INTAKE_MOTOR;

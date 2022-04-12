@@ -155,6 +155,29 @@ public class DriveBase extends SubsystemBase {
         OI.eastMotor.set(powerY + pRotate);
         OI.westMotor.set(powerY + powerX);
     }
+    public void holonomicDrive(double stickX, double stickY, double rightStickX){
+      
+        //Pure guessing as for now and to further see what must be done robot is needed 
+        boolean a = OI.gamepad.getRawButton(0);
+        if(a == true){
+            OI.northMotor.set((-stickY - stickX - rightStickX) * 0.4);
+            OI.eastMotor.set((stickY - stickX - rightStickX) * 0.4);
+            OI.southMotor.set((stickY + stickX - rightStickX) * 0.4);
+            OI.westMotor.set((-stickY + stickX - rightStickX) * 0.4);
+        }
+       
+        boolean b = OI.gamepad.getRawButton(1);
+        double headingAngle = Math.atan2(stickY, stickX);
+        if(b == true){
+            OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
+            OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
+            OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
+            OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
+        }
+        
+       
+
+    }
 
     /**
      * Basic auto align method, this is used to basically align the robot

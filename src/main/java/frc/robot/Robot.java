@@ -157,12 +157,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    driveBase.holonomicDrive(OI.gamepad.getRawAxis(Constants.STICK_X), OI.gamepad.getRawAxis(Constants.STICK_Y), OI.gamepad.getRawAxis(Constants.ROTATE_AXIS), DriveBase.maxSpeed(), OI.gamepad.getRawButton(Constants.DPAD_UP), OI.gamepad.getRawButton(Constants.DPAD_DOWN), OI.gamepad.getRawButton(Constants.DPAD_LEFT), OI.gamepad.getRawButton(Constants.DPAD_RIGHT)); // calls holonomic class from drivebase
-    driveBase.intake(DriveBase.maxSpeed());
-    driveBase.conveyor();
-    driveBase.launcher(DriveBase.maxSpeed());
-    driveBase.autoAlign();
-    driveBase.getIntoPosition();
+    driveBase.holonomicDrive(OI.gamepad.getRawAxis(Constants.STICK_X), OI.gamepad.getRawAxis(Constants.STICK_Y), OI.gamepad.getRawAxis(Constants.ROTATE_AXIS)); // Calls holonomic class from drivebase periodically
+    // driveBase.intake(DriveBase.maxSpeed());
+    // driveBase.conveyor();
+    // driveBase.launcher(DriveBase.maxSpeed());
+    // driveBase.autoAlign();
+    // driveBase.getIntoPosition();
   }
   
   //Seperate Test and Tele with Auto
