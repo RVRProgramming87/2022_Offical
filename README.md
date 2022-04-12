@@ -6,7 +6,8 @@ This is the offical code for FRC Team RVR87 for robotics Year 2022
 
 There are two recommended ways on how to use GitHub for RVR87:
 - Through the command line
-- Utilizing VS Code's GitHub tools  
+- Utilizing VS Code's GitHub tools 
+- We will only be using VS Code's GitHub tools for this process however 
 
 ## How to use VS Code to Clone repo's
 
@@ -29,5 +30,3 @@ VS Code allows you to stage changes when code is edited in a very simple manner
 3. Click the **"+"** button next to the file you want to push to github, after this, click the checkmark above, create a commit message, and if prompted, click the sync button in order to sync with the repository 
 4. When these steps are completed, your changes to the code will now be pushed and present in GitHub 
 ##  
-
-
