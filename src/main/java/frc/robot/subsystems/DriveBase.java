@@ -123,7 +123,7 @@ public class DriveBase extends SubsystemBase {
             OI.rightClimber.set(0);
         }
     }
-    //Subject to change (Eventually find a way to decrease the amount of parameters - Josh)
+    //Deprecated method
     public void holonomicDrive(double stickX, double stickY, double pRotate, double maxSpeed, boolean dPadUp, boolean dPadDown, boolean dPadLeft, boolean dPadRight){
 
         stickX += Math.pow(2, -100);
@@ -156,27 +156,24 @@ public class DriveBase extends SubsystemBase {
         OI.westMotor.set(powerY + powerX);
     }
     public void holonomicDrive(double stickX, double stickY, double rightStickX){
-      
-        //Pure guessing as for now and to further see what must be done robot is needed 
-        boolean a = OI.gamepad.getRawButton(0);
-        if(a == true){
-            OI.northMotor.set((-stickY - stickX - rightStickX) * 0.4);
-            OI.eastMotor.set((stickY - stickX - rightStickX) * 0.4);
-            OI.southMotor.set((stickY + stickX - rightStickX) * 0.4);
-            OI.westMotor.set((-stickY + stickX - rightStickX) * 0.4);
-        }
-       
-        boolean b = OI.gamepad.getRawButton(1);
-        double headingAngle = Math.atan2(stickY, stickX);
-        if(b == true){
-            OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
-            OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
-            OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
-            OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.4) - (rightStickX * 0.4));
-        }
-        
-       
+             
+    double headingAngle = Math.atan2(stickY, stickX);
 
+    // northMotor.set((-stickY + stickX - rightStickX) * 0.5); //West
+    // eastMotor.set((-stickY - stickX - rightStickX) * 0.5);  //North
+    // southMotor.set((stickY - stickX - rightStickX) * 0.5); //East
+    // westMotor.set((stickY + stickX - rightStickX) * 0.5); //South
+     
+    // northMotor.set((-stickY - stickX - rightStickX) * 0.4); //West
+    // eastMotor.set((stickY - stickX - rightStickX) * 0.4); //North
+    // southMotor.set((stickY + stickX - rightStickX) * 0.4); //East
+    // westMotor.set((-stickY + stickX - rightStickX) * 0.4); //South
+  
+    OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
+    OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
+    OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
+    OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
+         
     }
 
     /**

@@ -47,7 +47,7 @@ public class OI {
     public static DiabloTalonFX leftClimber = new DiabloTalonFX(Constants.CLIMBER_LEFT);
     public static DiabloTalonFX rightClimber = new DiabloTalonFX(Constants.CLIMBER_RIGHT);
 
-    //OI Constructor, this code executes when OI is called 
+    //OI Constructor, this code executes when OI itself is called 
     public OI(){
        
         m_exampleSubsystem = new ExampleSubsystem();
