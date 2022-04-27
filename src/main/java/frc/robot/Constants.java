@@ -16,6 +16,7 @@ package frc.robot;
  * <p>It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
+
 //Each constant with an assigned value should be final 
 public abstract class Constants {
     //Each individual motor 
@@ -26,7 +27,7 @@ public abstract class Constants {
 
     //The individual intake motor and its button placement
     public static int INTAKE_MOTOR;
-    public static int REVERSE_INTAKE_BUTTON = 2;
+    public static final int REVERSE_INTAKE_BUTTON = 2;
 
     //Joystick usb value and Gamepad usb value derived from FRC Drive Station
     public static final int JOYSTICK = 1;
@@ -67,7 +68,7 @@ public abstract class Constants {
      public static int RIGHT_LAUNCHER;
      public static final int LAUNCHER_BUTTON = 6;
 
-     //Shooting distance (TODO: Convert to cm if need be)
+     //Shooting distance (TODO: Heavy testing is needed to know what exactly to put in here)
      //Highly suggest this value to be changed for each competition if distance is changed 
      public static final double shootDistance = 2.7844;
 }

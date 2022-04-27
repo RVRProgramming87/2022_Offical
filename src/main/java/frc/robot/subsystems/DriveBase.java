@@ -7,7 +7,7 @@ package frc.robot.subsystems;
 //Imports from completed classes
 import frc.robot.OI;
 import frc.robot.Constants;
-import  frc.robot.motors.DiabloTalonFX;
+import frc.robot.motors.DiabloTalonFX;
 
 //Subsystem imports
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -43,6 +43,7 @@ public class DriveBase extends SubsystemBase {
         motorList.add(OI.conveyorMotor);
         motorList.add(OI.rightLauncher);
         motorList.add(OI.leftLauncher);
+       
         //TODO: Add climbers as well?
         motorList.add(OI.leftClimber);
         motorList.add(OI.rightClimber);
@@ -155,6 +156,7 @@ public class DriveBase extends SubsystemBase {
         OI.eastMotor.set(powerY + pRotate);
         OI.westMotor.set(powerY + powerX);
     }
+    //TODO: Change motor names to fit the desired directions
     public void holonomicDrive(double stickX, double stickY, double rightStickX){
              
     double headingAngle = Math.atan2(stickY, stickX);
@@ -164,6 +166,7 @@ public class DriveBase extends SubsystemBase {
     // southMotor.set((stickY - stickX - rightStickX) * 0.5); //East
     // westMotor.set((stickY + stickX - rightStickX) * 0.5); //South
      
+    //Original
     // northMotor.set((-stickY - stickX - rightStickX) * 0.4); //West
     // eastMotor.set((stickY - stickX - rightStickX) * 0.4); //North
     // southMotor.set((stickY + stickX - rightStickX) * 0.4); //East
