@@ -172,10 +172,11 @@ public class DriveBase extends SubsystemBase {
     // southMotor.set((stickY + stickX - rightStickX) * 0.4); //East
     // westMotor.set((-stickY + stickX - rightStickX) * 0.4); //South
   
-    OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
-    OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
-    OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
-    OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.5) - (rightStickX * 0.5));
+    //General formula: Power (Magnitude of vector) * (Its relavent position based on unit circle (Varies) + pi/4) - Turn speed (To make it rotate with right stick only)
+    OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
          
     }
 
