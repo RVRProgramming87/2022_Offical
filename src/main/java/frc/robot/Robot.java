@@ -40,7 +40,6 @@ import edu.wpi.first.networktables.*;
 //Import for Joystick
 import edu.wpi.first.wpilibj.Joystick;
 
-
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -88,7 +87,7 @@ public class Robot extends TimedRobot {
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
    *
-   * <p>This runs after the mode specific periodic functions, but before LiveWindow and
+   * This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
 
@@ -154,6 +153,7 @@ public class Robot extends TimedRobot {
   
   //One of the most important methods
   /** This function is called periodically during operator control. */
+  //I recommend you test each line individually (Start with holonomic drive, then comment it, then move on to intake, and so on)
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();

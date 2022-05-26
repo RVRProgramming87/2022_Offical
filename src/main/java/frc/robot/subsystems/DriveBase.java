@@ -44,7 +44,6 @@ public class DriveBase extends SubsystemBase {
         motorList.add(OI.rightLauncher);
         motorList.add(OI.leftLauncher);
        
-        //TODO: Add climbers as well?
         motorList.add(OI.leftClimber);
         motorList.add(OI.rightClimber);
 
@@ -124,7 +123,7 @@ public class DriveBase extends SubsystemBase {
             OI.rightClimber.set(0);
         }
     }
-    //Deprecated method
+    //Deprecated method (feel free to remove)
     public void holonomicDrive(double stickX, double stickY, double pRotate, double maxSpeed, boolean dPadUp, boolean dPadDown, boolean dPadLeft, boolean dPadRight){
 
         stickX += Math.pow(2, -100);
@@ -156,27 +155,22 @@ public class DriveBase extends SubsystemBase {
         OI.eastMotor.set(powerY + pRotate);
         OI.westMotor.set(powerY + powerX);
     }
-    //TODO: Change motor names to fit the desired directions
+
     public void holonomicDrive(double stickX, double stickY, double rightStickX){
              
     double headingAngle = Math.atan2(stickY, stickX);
 
-    // northMotor.set((-stickY + stickX - rightStickX) * 0.5); //West
-    // eastMotor.set((-stickY - stickX - rightStickX) * 0.5);  //North
-    // southMotor.set((stickY - stickX - rightStickX) * 0.5); //East
-    // westMotor.set((stickY + stickX - rightStickX) * 0.5); //South
-     
-    //Original
-    // northMotor.set((-stickY - stickX - rightStickX) * 0.4); //West
-    // eastMotor.set((stickY - stickX - rightStickX) * 0.4); //North
-    // southMotor.set((stickY + stickX - rightStickX) * 0.4); //East
-    // westMotor.set((-stickY + stickX - rightStickX) * 0.4); //South
-  
+    // OI.westMotor.set((-stickY + stickX - rightStickX) * 0.5); //West
+    // OI.northMotor.set((-stickY - stickX - rightStickX) * 0.5);  //North
+    // OI.eastMotor.set((stickY - stickX - rightStickX) * 0.5); //East
+    // OI.southMotor.set((stickY + stickX - rightStickX) * 0.5); //South
+
+    //If you are doing testing and its not working then the motors are misaligned code-wise, however the math works 
     //General formula: Power (Magnitude of vector) * (Its relavent position based on unit circle (Varies) + pi/4) - Turn speed (To make it rotate with right stick only)
-    OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
-    OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
-    OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
-    OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.westMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.sin(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.northMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.cos(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.eastMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (Math.sin(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
+    OI.southMotor.set((((Math.sqrt(Math.pow(stickX, 2) + Math.pow(stickY, 2))) * (-Math.cos(headingAngle + (Math.PI / 4)))) * 0.6) - (rightStickX * 0.6));
          
     }
 
@@ -187,9 +181,9 @@ public class DriveBase extends SubsystemBase {
     public void autoAlign(){
         if(autoAlignButtonPressed){
             if(limelight.x > 0){
-              holonomicDrive(0, 0, -0.75, 0.4, false, false, false, false);
+              holonomicDrive(0, 0, -0.75);
             } else if (limelight.x < 0){
-                holonomicDrive(0, 0, 0.75, 0.4, false, false, false, false);
+                holonomicDrive(0, 0, 0.75);
             }
         }
     }
@@ -201,9 +195,9 @@ public class DriveBase extends SubsystemBase {
     public void getIntoPosition(){
         if(gipButtonPressed){
             if(limelight.horizontalDistance() > Constants.shootDistance){
-                holonomicDrive(0, 0.5, 0, 0.4, false, false, false, false);
+                holonomicDrive(0, 0.5, 0);
             } else if(limelight.horizontalDistance() < Constants.shootDistance){
-                holonomicDrive(0, -0.5, 0, 0.4, false, false, false, false);
+                holonomicDrive(0, -0.5, 0);
             }
         }
     }

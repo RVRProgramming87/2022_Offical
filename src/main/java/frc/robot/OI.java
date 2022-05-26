@@ -34,10 +34,10 @@ public class OI {
     public static Joystick joystick = new Joystick(Constants.JOYSTICK);
 
     //Create mapping declarations for the motors for holonomic drive 
-    public static DiabloTalonFX northMotor = new DiabloTalonFX(Constants.NORTHMOTOR);
-    public static DiabloTalonFX southMotor = new DiabloTalonFX(Constants.SOUTHMOTOR);
-    public static DiabloTalonFX eastMotor = new DiabloTalonFX(Constants.EASTMOTOR);
-    public static DiabloTalonFX westMotor = new DiabloTalonFX(Constants.WESTMOTOR);
+    public static DiabloTalonFX westMotor = new DiabloTalonFX(Constants.NORTHMOTOR);
+    public static DiabloTalonFX eastMotor = new DiabloTalonFX(Constants.SOUTHMOTOR);
+    public static DiabloTalonFX northMotor = new DiabloTalonFX(Constants.EASTMOTOR);
+    public static DiabloTalonFX southMotor = new DiabloTalonFX(Constants.WESTMOTOR);
 
     //Create mapping declarations for basic motor functions to be used with SPARK Max's (Launchers, conveyors, etc)
     public static DiabloTalonFX intakeMotor = new DiabloTalonFX(Constants.INTAKE_MOTOR);
