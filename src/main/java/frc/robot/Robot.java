@@ -47,6 +47,23 @@ import edu.wpi.first.wpilibj.Joystick;
  * project.
  */
 
+ /**
+  * Note from Josh:
+  Due to the difficulties faced this year, the furthest progress made 
+  in the robot programming wise is the fully working holonomic drive 
+  method as it has been tested and works, the other methods that have been 
+  made such as climber, auto-align, and get-into-position will most likely 
+  not work because testing has not been done and should be the priority to fix 
+  and test next year, I also recommend that if 2023 WPILib is released, install that first
+  and clone the project from Github before proceeding to do anything else (As well as updating
+  the physical computer). I also recommend creating a new repo for 2023 and go on from there. It is
+  important to note that even though the holonomic drive code works, it was tested
+  using a different project folder (for testing purposes) but for now on when creating a 
+  project for the new year just follow the format of titling it XXXX_Offical such as this project. 
+  Unless further testing is done I am not sure if it will work (It should atleast) within this project 
+  folder. Good luck lmao.
+  */
+
 public class Robot extends TimedRobot {
 
   //Always keep this
